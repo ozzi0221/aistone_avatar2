@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     }
     try {
         const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
+            `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -23,11 +23,11 @@ export default async function handler(req, res) {
             }
         );
         const data = await response.json();
-        console.log("Gemini API 응답:", data); // ★ 이 줄 추가
+        console.log("Gemini API 응답:", data);
         const answer = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
         res.status(200).json({ answer });
     } catch (error) {
-        console.error("Gemini API 호출 에러:", error); // ★ 이 줄 추가
+        console.error("Gemini API 호출 에러:", error);
         res.status(500).json({ answer: 'Gemini API 호출 에러' });
     }
 }
